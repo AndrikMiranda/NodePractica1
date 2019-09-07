@@ -22,6 +22,22 @@ class ContactoController {
         });
     }
 
+    public async getById(req: Request, resp: Response):Promise<any>{
+        // Recuperar el id del contacto a consultar
+        const { id } = req.params;
+
+        const contacto = await conn.then(
+            connection => {
+                return connection.query('select * from contacto where id = ?', [id]);
+            }
+        ).then(
+            contacto => {
+                resp.json(contacto);
+            }
+        );
+        
+    }
+
     public async create(req: Request, resp: Response): Promise<any>{
         await conn.then(
             connection => {

@@ -31,6 +31,17 @@ class ContactoController {
             });
         });
     }
+    getById(req, resp) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Recuperar el id del contacto a consultar
+            const { id } = req.params;
+            const contacto = yield ConexionDB_1.default.then(connection => {
+                return connection.query('select * from contacto where id = ?', [id]);
+            }).then(contacto => {
+                resp.json(contacto);
+            });
+        });
+    }
     create(req, resp) {
         return __awaiter(this, void 0, void 0, function* () {
             yield ConexionDB_1.default.then(connection => {
