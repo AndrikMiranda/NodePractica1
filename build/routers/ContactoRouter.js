@@ -12,6 +12,7 @@ class ContactoRouter {
     }
     setRouter() {
         this.router.get('/', ContactoController_1.default.list);
+        this.router.post('/', ContactoController_1.default.create);
     }
 }
 const contactoRouter = new ContactoRouter();

@@ -31,6 +31,16 @@ class ContactoController {
             });
         });
     }
+    create(req, resp) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield ConexionDB_1.default.then(connection => {
+                connection.query('insert into contacto set ?', [req.body]);
+                resp.json({ text: Messages_1.default.CONT_INSERTED });
+            }).catch(() => {
+                resp.json({ text: Messages_1.default.CONN_FAIL });
+            });
+        });
+    }
 }
 const contactoController = new ContactoController();
 exports.default = contactoController;

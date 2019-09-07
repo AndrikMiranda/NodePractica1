@@ -3,6 +3,7 @@ import conn from '../conf/ConexionDB'
 import Messages from '../util/Messages';
 
 class ContactoController {
+
     public async list(req: Request, resp: Response): Promise<any> {
         const list = await conn.then(
             connection => {
@@ -18,6 +19,17 @@ class ContactoController {
             }
         ).catch(() => {
             resp.json({ text: Messages.CONN_FAIL });
+        });
+    }
+
+    public async create(req: Request, resp: Response): Promise<any>{
+        await conn.then(
+            connection => {
+                connection.query('insert into contacto set ?', [req.body]);
+                resp.json({text:Messages.CONT_INSERTED});
+            }
+        ).catch(() => {
+            resp.json({text:Messages.CONN_FAIL});
         });
     }
 }

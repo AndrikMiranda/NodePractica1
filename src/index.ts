@@ -10,8 +10,10 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.port || 3000;
+
         this.app.set('port', this.port);
         this.app.use(express.json());
+
         this.configurarServidor();
     }
 
