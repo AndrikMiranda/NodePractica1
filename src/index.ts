@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import cors from 'cors';
 import homeRouter from './routers/HomeRouter';
 import contactoRouter from './routers/ContactoRouter';
 
@@ -13,6 +14,7 @@ class Server {
 
         this.app.set('port', this.port);
         this.app.use(express.json());
+        this.app.use(cors());
 
         this.configurarServidor();
     }

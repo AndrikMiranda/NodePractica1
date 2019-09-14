@@ -33,7 +33,7 @@ class ContactoController {
     }
     getById(req, resp) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Recuperar el id del contacto a consultar
+            // Recuperar el ID del contacto a consultar
             const { id } = req.params;
             const contacto = yield ConexionDB_1.default.then(connection => {
                 return connection.query('select * from contacto where id = ?', [id]);
@@ -47,6 +47,29 @@ class ContactoController {
             yield ConexionDB_1.default.then(connection => {
                 connection.query('insert into contacto set ?', [req.body]);
                 resp.json({ text: Messages_1.default.CONT_INSERTED });
+            }).catch(() => {
+                resp.json({ text: Messages_1.default.CONN_FAIL });
+            });
+        });
+    }
+    updat(req, resp) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield ConexionDB_1.default.then(connection => {
+                connection.query('update contacto set ? where id = ?', [req.body, id]);
+                resp.json({ text: Messages_1.default.CONT_UPDATED });
+            }).catch(() => {
+                resp.json({ text: Messages_1.default.CONN_FAIL });
+            });
+        });
+    }
+    delete(req, resp) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //Obtener el ID de la url desde la URL
+            const { id } = req.params;
+            yield ConexionDB_1.default.then(connection => {
+                connection.query('delete from contacto where id = ?', [id]);
+                resp.json({ text: Messages_1.default.CONT_DELETED });
             }).catch(() => {
                 resp.json({ text: Messages_1.default.CONN_FAIL });
             });
